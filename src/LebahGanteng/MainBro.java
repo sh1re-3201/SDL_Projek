@@ -12,8 +12,10 @@ public class MainBro{
         JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
         JDialog dialog = optionPane.createDialog(null);
 
-        // Create a Timer with a delay of 3 seconds (3000 milliseconds)
-        Timer timer = new Timer(3000, new ActionListener() {
+        // Membuat timer 3 seconds (3000 milliseconds)
+        Timer lama = new Timer(3000, new ActionListener() {
+
+            // Masih belajar yang ini
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Dispose the JDialog
@@ -22,11 +24,11 @@ public class MainBro{
         });
 
         boolean keluar = false;
-        int count = 0;
+        int jumlahMhs = 0;
 
         // Start the Timer and display the JDialog
-        timer.setRepeats(false);
-        timer.start();
+        lama.setRepeats(false);
+        lama.start();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
 
@@ -39,15 +41,72 @@ public class MainBro{
                 /*
                 Karena penerimaan input dari JOptionPane secara default berupa String
                 maka agar inputan dari user dapat dipakai menjadi jumlah panjang array,
-                variabel Input di parse ke Integer variabel count
+                variabel Input di parse ke Integer variabel jumlahMhs
                  */
-                count = Integer.parseInt(input);
-                if (count <= 0){
+                jumlahMhs = Integer.parseInt(input);
+                if (jumlahMhs <= 0){
                     JOptionPane.showMessageDialog(null, "Data yang dimasukkan tidak boleh nol atau kurang!");
                 } else
                     keluar = true;
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Masukkan data berupa angka. Silakan coba lagi.");
+            }
+        }
+
+        // Array of Objek
+
+        // Bagian kode untuk meminta identitas mahasiswa
+        // laporan diganti sesuai dengan nama array yang dipilih
+        for (int i = 0; i < laporan.length;) {
+            String namaMhs = JOptionPane.showInputDialog(null, "Masukkan nama mahasiswa " + (i + 1));
+            if (namaMhs == null) {
+                return;
+            }
+
+
+            String nimMhs = JOptionPane.showInputDialog(null, "Masukkan nim mahasiswa " + (i + 1));
+            if (nimMhs == null) {
+                return;
+            }
+
+            /*
+            if statement ini digunakan agar tidak ada data kosong yang bisa
+            lewat dan dimasukkan ke array.
+            dalam else terdapat increment yang bertujuan untuk memajukan
+            for loop hanya jika seluruh data terisi.
+             */
+            if (namaMhs.isEmpty() || nimMhs.isEmpty() || tglLahirMhs.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Tidak boleh ada data inputan yang kosong. Silakan coba lagi.");
+            } else {
+
+                // Ini untuk ngeset data ke array of objek
+                laporan[i] = new Mahasiswa(namaMhs);
+                laporan[i].setNim(nimMhs);
+                i++;// Increment untuk for loop
+            }
+
+            boolean boolNilai = false;
+            while (!boolNilai){
+                boolNilai = true;
+                for (int i = 0; i < laporan.length; i++) {
+                    String uts1input = JOptionPane.showInputDialog(null, "Masukkan nilai Total dari : " + laporan[i].getNama());
+                    if (uts1input == null) {
+                        return;
+                    }
+
+                    try {
+                        laporan[i].setUts1(Double.parseDouble(uts1input));
+                        laporan[i].setUts2(Double.parseDouble(uts2input));
+                        laporan[i].setUas(Double.parseDouble(uasinput));
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, """
+                            Masukkan data berupa angka.
+                            Untuk bilangan desimal masukkan dengan menggunakan titik sebagai pemisah bukan koma
+                            Silakan coba lagi.""");
+                        boolNilai = false;
+                        break;
+                    }
+                }
             }
         }
 
@@ -66,10 +125,7 @@ public class MainBro{
 
 
 
-
-
         // Menu GUI
-//        JOptionPane.showMessageDialog(null, "Selamat Datang!");
 
 
     }
