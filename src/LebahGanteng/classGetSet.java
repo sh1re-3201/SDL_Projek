@@ -3,7 +3,7 @@ package LebahGanteng;
 public class classGetSet {
     private int nim;
     private String nama;
-    private int nilai; // Total nilai Alpro
+    private double nilai; // Total nilai Alpro
 
     public classGetSet() {
         
@@ -19,7 +19,7 @@ public class classGetSet {
         this.nama = nama;
     }
 
-    public void setnilai(int nilai){
+    public void setnilai(double nilai){
         this.nilai = nilai;
     }
 
@@ -31,7 +31,7 @@ public class classGetSet {
         return nama;
     }
 
-    public int getnilai() {
+    public double getnilai() {
         return nilai;
     }
 

@@ -31,11 +31,10 @@ public class MainBro{
         lama.start();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
-        
-        String input = JOptionPane.showInputDialog(null, "Masukkan jumlah mahasiswa yang ingin anda masukkan nilainya.");
-        
 
         while (!keluar) {
+            String input = JOptionPane.showInputDialog(null, "Masukkan jumlah mahasiswa yang ingin anda masukkan nilainya.");
+
             if (input == null) {// If statement ini berfungsi untuk keluar dari program jika user mengklik tombol X(silang) pada jendela
                 return;
             }
@@ -60,58 +59,59 @@ public class MainBro{
         // Bagian kode untuk meminta identitas mahasiswa
         // laporan diganti sesuai dengan nama array yang dipilih
         for (int i = 0; i < isiData.length;) {
-            String namaMhs = JOptionPane.showInputDialog(null, "Masukkan nama mahasiswa " + (i + 1));
-            
-            if (namaMhs == null) {
-                return;
-            }
+            String namaMhs = null;
+            int nimFinal = 0;
+            boolean validInput = false;
+
+            do {
+                namaMhs = JOptionPane.showInputDialog(null, "Masukkan nama mahasiswa " + (i + 1));
+                if (namaMhs == null || namaMhs.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Nama tidak boleh kosong. Silakan coba lagi.");
+                    continue;
+                }
+
+                String nimMhs = JOptionPane.showInputDialog(null, "Masukkan nim mahasiswa " + namaMhs);
+                if (nimMhs == null) {
+                    return;
+                }
+
+                try {
+                    nimFinal = Integer.parseInt(nimMhs);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "NIM harus berupa angka. Silakan coba lagi.");
+                    continue;
+                }
 
 
-            int nimMhs = Integer.parseInt(JOptionPane.showInputDialog(null, "Masukkan nim mahasiswa " + namaMhs));
-           
-            if (isiData[nimMhs] == null) {
-                return;
-            }
 
-            int nilaiMhs = Integer.parseInt(JOptionPane.showInputDialog(null, "Masukkan nilai mahasiswa " + namaMhs));
-            isiData[i].setnilai(nilaiMhs);
-            if(isiData[nilaiMhs] == null){
-                return;
-            }
-            /*
-            if statement ini digunakan agar tidak ada data kosong yang bisa
-            lewat dan dimasukkan ke array.
-            dalam else terdapat increment yang bertujuan untuk memajukan
-            for loop hanya jika seluruh data terisi.
-             */
-            if (namaMhs.isEmpty() || isiData[nimMhs].isEmpty() || isiData[nilaiMhs].isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Tidak boleh ada data inputan yang kosong. Silakan coba lagi.");
-            } else {
-                isiData[i].setnama(namaMhs);
-                isiData[i].setnim(nimMhs);
-                isiData[i].setnilai(nilaiMhs);
-                i++;// Increment untuk for loop
-            }
+                validInput = true;
+            } while (!validInput);
 
-            boolean boolNilai = false;
-            while (!boolNilai){
-                boolNilai = true;
-                for (int j = 0; i < isiData.length; i++) {
-                    String nilaiTotal = JOptionPane.showInputDialog(null, "Masukkan nilai Total dari : " + isiData[i].getnama());
-                    if (nilaiTotal == null) {
-                        return;
-                    }
+            isiData[i] = new classGetSet();
+            isiData[i].setnama(namaMhs);
+            isiData[i].setnim(nimFinal);
+            i++;
+        }
 
-                    try {
-                        isiData[j].setnilai(Integer.parseInt(nilaiTotal));
+        boolean boolNilai = false;
+        while (!boolNilai){
+            boolNilai = true;
+            for (int j = 0; j < isiData.length; j++) {
+                String nilaiTotal = JOptionPane.showInputDialog(null, "Masukkan nilai Total dari : " + isiData[j].getnama());
+                if (nilaiTotal == null) {
+                    return;
+                }
 
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, """
-                            Masukkan data berupa angka.
-                            Untuk bilangan desimal masukkan dengan menggunakan titik sebagai pemisah bukan koma
-                            Silakan coba lagi.""");
-                        boolNilai = false;
-                        break;
+                try {
+                    isiData[j].setnilai(Double.parseDouble(nilaiTotal));
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, """
+                Masukkan data berupa angka.
+                Untuk bilangan desimal masukkan dengan menggunakan titik sebagai pemisah bukan koma
+                Silakan coba lagi.""");
+                    boolNilai = false;
+                    break;
                     }
                 }
             }
@@ -135,5 +135,5 @@ public class MainBro{
         // Menu GUI
 
 
-    }
+
 }
