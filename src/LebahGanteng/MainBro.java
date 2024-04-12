@@ -89,15 +89,14 @@ public class MainBro{
             while (!boolNilai){
                 boolNilai = true;
                 for (int i = 0; i < laporan.length; i++) {
-                    String uts1input = JOptionPane.showInputDialog(null, "Masukkan nilai Total dari : " + laporan[i].getNama());
-                    if (uts1input == null) {
+                    String nilaiTotal = JOptionPane.showInputDialog(null, "Masukkan nilai Total dari : " + laporan[i].getNama());
+                    if (nilaiTotal == null) {
                         return;
                     }
 
                     try {
-                        laporan[i].setUts1(Double.parseDouble(uts1input));
-                        laporan[i].setUts2(Double.parseDouble(uts2input));
-                        laporan[i].setUas(Double.parseDouble(uasinput));
+                        laporan[i].setUts1(Double.parseDouble(nilaiTotal));
+
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, """
                             Masukkan data berupa angka.
