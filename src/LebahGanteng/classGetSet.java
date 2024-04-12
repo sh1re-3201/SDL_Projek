@@ -5,21 +5,40 @@ public class classGetSet {
     private String nama;
     private int nilai; // Total nilai Alpro
 
-    public classGetSet(int nim, String nama, int nilai) {
+    public classGetSet() {
+        
+    }
+
+    
+
+    public void setnim(int nim){
         this.nim = nim;
+    }
+
+    public void setnama(String nama){
         this.nama = nama;
+    }
+
+    public void setnilai(int nilai){
         this.nilai = nilai;
     }
 
-    public int nim() {
+    public int getnim() {
         return nim;
     }
 
-    public String nama() {
+    public String getnama() {
         return nama;
     }
 
-    public int nilai() {
+    public int getnilai() {
         return nilai;
+    }
+
+
+
+    public boolean isEmpty() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
     }
 }

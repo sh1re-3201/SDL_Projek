@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class MainBro{
     public static void main(String[] args) {
         //Objek dan Manggil Kelas
+<<<<<<< Updated upstream
         JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
         JDialog dialog = optionPane.createDialog(null);
 
@@ -63,6 +64,9 @@ public class MainBro{
                 return;
             }
 
+=======
+        
+>>>>>>> Stashed changes
 
             String nimMhs = JOptionPane.showInputDialog(null, "Masukkan nim mahasiswa " + (i + 1));
             if (nimMhs == null) {
