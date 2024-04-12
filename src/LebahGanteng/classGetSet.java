@@ -20,6 +20,6 @@ public class classGetSet {
     }
 
     public int nilai() {
-        return nim;
+        return nilai;
     }
 }
