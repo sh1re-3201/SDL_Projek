@@ -1,20 +1,35 @@
 package LebahGanteng;
 
 public class classSelSort {
-    public static void selSort(int[] larik) {
-        int terkecil;
-        int tukar;
-
-        for (int iawal = 0; iawal < larik.length; iawal++) {
-            terkecil = iawal;
-            for (int iLanjut = iawal + 1; iLanjut < larik.length; iLanjut++) {
-                if (larik[terkecil] > larik[iLanjut]) {
-                    terkecil = iLanjut;
+    public static void selSortDesc(classGetSet[] isiData) {
+        int n = isiData.length;
+        for (int i = 0; i < n - 1; i++) {
+            int terkecil = i;
+            for (int j = i + 1; j < n; j++) {
+                if (isiData[j].getnim() > isiData[terkecil].getnim()) {
+                    terkecil = j;
                 }
             }
-            tukar = larik[iawal];
-            larik[iawal] = larik[terkecil];
-            larik[terkecil] = tukar;
+            // Tukar elemen
+            classGetSet tukar = isiData[i];
+            isiData[i] = isiData[terkecil];
+            isiData[terkecil] = tukar;
+        }
+    }
+
+    public static void selSortAsc(classGetSet[] isiData) {
+        int n = isiData.length;
+        for (int i = 0; i < n - 1; i++) {
+            int terkecil = i;
+            for (int j = i + 1; j < n; j++) {
+                if (isiData[j].getnim() < isiData[terkecil].getnim()) {
+                    terkecil = j;
+                }
+            }
+            // Tukar elemen
+            classGetSet tukar = isiData[i];
+            isiData[i] = isiData[terkecil];
+            isiData[terkecil] = tukar;
         }
     }
 }

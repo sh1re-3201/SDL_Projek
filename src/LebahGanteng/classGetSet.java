@@ -9,7 +9,11 @@ public class classGetSet {
         
     }
 
-    
+    @Override
+public String toString() {
+    return "Nama: " + nama + ", NIM: " + nim + ", Nilai: " + nilai;
+}
+
 
     public void setnim(int nim){
         this.nim = nim;
@@ -35,7 +39,36 @@ public class classGetSet {
         return nilai;
     }
 
+    public static void sortByAngkatan(classGetSet[] isiData, int angkatan) {
+        for (int i = 0; i < isiData.length - 1; i++) {
+            int duaIndeksA = i;
+            for (int j = i + 1; j < isiData.length; j++) {
+                int angkatanNIM = Integer.parseInt(String.valueOf(isiData[j].getnim()).substring(0, 2)); // fungsi SubString untuk mengambil 2 digit pertama dari NIM
+                if (angkatanNIM == angkatan) {
+                    if (isiData[j].getnim() < isiData[duaIndeksA].getnim()) {
+                        duaIndeksA = j;
+                    }
+                }
+            }
+            classGetSet tukar = isiData[duaIndeksA];
+            isiData[duaIndeksA] = isiData[i];
+            isiData[i] = tukar;
+        }
+    }
 
+    public static void sortByAllAngkatan(classGetSet[] isiData) {
+        for (int i = 0; i < isiData.length - 1; i++) {
+            int allIndeks = i;
+            for (int j = i + 1; j < isiData.length; j++) {
+                if (isiData[j].getnim() < isiData[allIndeks].getnim()) {
+                    allIndeks = j;
+                }
+            }
+            classGetSet tukar = isiData[allIndeks];
+            isiData[allIndeks] = isiData[i];
+            isiData[i] = tukar;
+        }
+    }
 
     public boolean isEmpty() {
         // TODO Auto-generated method stub

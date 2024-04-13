@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 
 public class MainBro {
     public static void main(String[] args) {
-        //Objek dan Manggil Kelas
-        JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+        // Objek dan Manggil Kelas
+        JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
         JDialog dialog = optionPane.createDialog(null);
 
         // Membuat timer 3 seconds (3000 milliseconds)
@@ -32,16 +33,18 @@ public class MainBro {
         dialog.setVisible(true);
 
         while (!keluar) {
-            String input = JOptionPane.showInputDialog(null, "Masukkan jumlah mahasiswa yang ingin anda masukkan nilainya.");
+            String input = JOptionPane.showInputDialog(null,
+                    "Masukkan jumlah mahasiswa yang ingin anda masukkan nilainya.");
 
-            if (input == null) {// If statement ini berfungsi untuk keluar dari program jika user mengklik tombol X(silang) pada jendela
+            if (input == null) {// If statement ini berfungsi untuk keluar dari program jika user mengklik
+                                // tombol X(silang) pada jendela
                 return;
             }
             try {
                 /*
-                Karena penerimaan input dari JOptionPane secara default berupa String
-                maka agar inputan dari user dapat dipakai menjadi jumlah panjang array,
-                variabel Input di parse ke Integer variabel jumlahMhs
+                 * Karena penerimaan input dari JOptionPane secara default berupa String
+                 * maka agar inputan dari user dapat dipakai menjadi jumlah panjang array,
+                 * variabel Input di parse ke Integer variabel jumlahMhs
                  */
                 jumlahMhs = Integer.parseInt(input);
                 if (jumlahMhs <= 0) {
@@ -57,11 +60,11 @@ public class MainBro {
         classGetSet[] isiData = new classGetSet[jumlahMhs];
         memintaInput(isiData);
 
-
     }
+
     // Method untuk meminta input
-    private static void memintaInput(classGetSet[] isiData){
-        for (int i = 0; i < isiData.length; ) {
+    private static void memintaInput(classGetSet[] isiData) {
+        for (int i = 0; i < isiData.length;) {
             isiData[i] = new classGetSet();
 
             String namaFinal;
@@ -106,9 +109,9 @@ public class MainBro {
                 }
                 validInput = true;
             } while (!validInput);
-            
+
             if (namaMhs.isEmpty() || nimMhs.isEmpty() || nilaiTotal.isEmpty()) {
-                
+
             }
             isiData[i] = new classGetSet();
             isiData[i].setnama(namaMhs);
@@ -118,6 +121,7 @@ public class MainBro {
         }
         mengonfirmasi(isiData);
     }
+
     private static void mengonfirmasi(classGetSet[] data) {
         // Set up the frame
         JFrame frame = new JFrame("");
@@ -134,7 +138,7 @@ public class MainBro {
         frame.add(confirmationPanel, BorderLayout.NORTH);
 
         // Set up the table
-        String[] columnNames = {"Nama", "NIM", "Nilai"};
+        String[] columnNames = { "Nama", "NIM", "Nilai" };
         Object[][] tableData = new Object[data.length][3];
         for (int i = 0; i < data.length; i++) {
             tableData[i][0] = data[i].getnama();
@@ -175,6 +179,53 @@ public class MainBro {
         // Display the frame
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public static void sortingPertipe(classGetSet[] isiData) {
+        boolean ulang = true;
+        
+        while (ulang) {
+            int guiTipe = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Apakah anda ingin Mensorting berdasarkan : \n1.Per-Angkatan 21 \n2.Per-Angkatan 22 \n3.Per-Angkatan 23 \n4.Seluruh Angkatan"));
+
+            if (guiTipe >= 1 && guiTipe <= 4) {
+                if (guiTipe == 1) {
+                    classGetSet.sortByAngkatan(isiData, 21);
+                } else if (guiTipe == 2) {
+                    classGetSet.sortByAngkatan(isiData, 22);
+                } else if (guiTipe == 3) {
+                    classGetSet.sortByAngkatan(isiData, 23);
+                } else if (guiTipe == 4) {
+                    classGetSet.sortByAllAngkatan(isiData);
+                }
+
+                // Menampilkan submenu untuk pilihan ascending atau descending
+                boolean ascending = menuAscDesc();
+
+                // Menampilkan hasil sorting
+                if (ascending) {
+                    classSelSort.selSortAsc(isiData); // Sorting ascending
+                } else {
+                    classSelSort.selSortDesc(isiData); // Sorting descending
+                }
+
+
+                //Buat Program untuk menampilkan hasilnya disini bang 
+
+
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Pilihan tidak valid. Silakan coba lagi.");
+            }
+        }
+    }
+
+    private static boolean menuAscDesc() {
+        int pilihan = JOptionPane.showOptionDialog(null, "Pilih jenis sorting:", "Sorting",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new String[] { "Ascending", "Descending" }, "Ascending");
+
+        return pilihan == JOptionPane.YES_OPTION;
     }
 
 }
