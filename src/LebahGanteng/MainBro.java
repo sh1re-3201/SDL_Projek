@@ -262,7 +262,14 @@ public class MainBro {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                classGetSet.sortByAllAngkatan(isiData);
+                int sortOrder = askSortOrder();
+
+                // Sort the data based on the user's choice
+                if (sortOrder == JOptionPane.YES_OPTION) {
+                    classSelSort.selSortAsc(isiData);
+                } else {
+                    classSelSort.selSortDesc(isiData);
+                }
                 displaySortedData(isiData);
                 frame.dispose();
             }
@@ -272,7 +279,14 @@ public class MainBro {
         button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                classSelSort.selSortAscByNilai(isiData);
+                int sortOrder = askSortOrder();
+
+                // Sort the data based on the user's choice
+                if (sortOrder == JOptionPane.YES_OPTION) {
+                    classSelSort.selSortAsc(isiData);
+                } else {
+                    classSelSort.selSortDesc(isiData);
+                }
                 displaySortedData(isiData);
                 frame.dispose();
             }
