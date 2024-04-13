@@ -283,9 +283,9 @@ public class MainBro {
 
                 // Sort the data based on the user's choice
                 if (sortOrder == JOptionPane.YES_OPTION) {
-                    classSelSort.selSortAsc(isiData);
+                    classSelSort.selSortAscByNilai(isiData);
                 } else {
-                    classSelSort.selSortDesc(isiData);
+                    classSelSort.selSortDescByNilai(isiData);
                 }
                 displaySortedData(isiData);
                 frame.dispose();
