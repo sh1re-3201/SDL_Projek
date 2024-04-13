@@ -181,14 +181,15 @@ public class MainBro {
         frame.setVisible(true);
     }
 
+    //Segmen progrsm untuk menanyakan user mau menyortir perangakatan atau keseluruhan dan pernilai
     public static void sortingPertipe(classGetSet[] isiData) {
         boolean ulang = true;
-        
+    
         while (ulang) {
             int guiTipe = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Apakah anda ingin Mensorting berdasarkan : \n1.Per-Angkatan 21 \n2.Per-Angkatan 22 \n3.Per-Angkatan 23 \n4.Seluruh Angkatan"));
-
-            if (guiTipe >= 1 && guiTipe <= 4) {
+                    "Apakah anda ingin Mensorting berdasarkan : \n1.Per-Angkatan 21 \n2.Per-Angkatan 22 \n3.Per-Angkatan 23 \n4.Seluruh Angkatan \n5.Nilai Total"));
+        
+            if (guiTipe >= 1 && guiTipe <= 5) {
                 if (guiTipe == 1) {
                     classGetSet.sortByAngkatan(isiData, 21);
                 } else if (guiTipe == 2) {
@@ -197,29 +198,45 @@ public class MainBro {
                     classGetSet.sortByAngkatan(isiData, 23);
                 } else if (guiTipe == 4) {
                     classGetSet.sortByAllAngkatan(isiData);
+                    boolean ascending = menuAscDesc();
+        
+                    if (ascending) {
+                        classSelSort.selSortAscByNilai(isiData);;
+                    } else {
+                        classSelSort.selSortDescByNilai(isiData);;
+                    }
+                } else if (guiTipe == 5) {
+                    // Sort by total nilai
+                    classSelSort.selSortAscByNilai(isiData);
                 }
-
+        
                 // Menampilkan submenu untuk pilihan ascending atau descending
                 boolean ascending = menuAscDesc();
-
+        
                 // Menampilkan hasil sorting
                 if (ascending) {
                     classSelSort.selSortAsc(isiData); // Sorting ascending
                 } else {
                     classSelSort.selSortDesc(isiData); // Sorting descending
                 }
+        
+                // Untuk hasilnya taruh disini nanti bang
 
 
-                //Buat Program untuk menampilkan hasilnya disini bang 
+
 
 
                 
             } else {
                 JOptionPane.showMessageDialog(null, "Pilihan tidak valid. Silakan coba lagi.");
             }
+        
         }
-    }
-
+            
+        }
+        
+    
+    //Segemn untuk menampilkan menu untuk menanyakan user mau tipe sortiran ascending atau descending
     private static boolean menuAscDesc() {
         int pilihan = JOptionPane.showOptionDialog(null, "Pilih jenis sorting:", "Sorting",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -227,5 +244,18 @@ public class MainBro {
 
         return pilihan == JOptionPane.YES_OPTION;
     }
+
+
+    
+
+private static boolean menuSortByNilai() {
+    int pilihan = JOptionPane.showOptionDialog(null, "Apakah anda ingin mensorting berdasarkan nilai total mahasiswa?",
+            "Sorting", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            new String[] { "Ya", "Tidak" }, "Ya");
+
+    return pilihan == JOptionPane.YES_OPTION;
+}
+
+
 
 }
