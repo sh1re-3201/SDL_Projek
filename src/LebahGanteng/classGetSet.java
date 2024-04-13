@@ -1,7 +1,10 @@
 package LebahGanteng;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class classGetSet {
-    private int nim;
+    private long nim;
     private String nama;
     private double nilai; // Total nilai Alpro
 
@@ -15,7 +18,7 @@ public String toString() {
 }
 
 
-    public void setnim(int nim){
+    public void setnim(long nim){
         this.nim = nim;
     }
 
@@ -27,7 +30,7 @@ public String toString() {
         this.nilai = nilai;
     }
 
-    public int getnim() {
+    public long getnim() {
         return nim;
     }
 
@@ -39,21 +42,39 @@ public String toString() {
         return nilai;
     }
 
-    public static void sortByAngkatan(classGetSet[] isiData, int angkatan) {
-        for (int i = 0; i < isiData.length - 1; i++) {
-            int duaIndeksA = i;
-            for (int j = i + 1; j < isiData.length; j++) {
-                int angkatanNIM = Integer.parseInt(String.valueOf(isiData[j].getnim()).substring(0, 2)); // fungsi SubString untuk mengambil 2 digit pertama dari NIM
-                if (angkatanNIM == angkatan) {
-                    if (isiData[j].getnim() < isiData[duaIndeksA].getnim()) {
-                        duaIndeksA = j;
-                    }
-                }
+    public static void displayByAngkatan(classGetSet[] isiData, int angkatan) {
+        // Create a new JFrame
+        JFrame frame = new JFrame("Data by Angkatan");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+
+        // Define column names for the JTable
+        String[] columnNames = {"NIM", "Nama", "Nilai"};
+
+        // Create a 2D array to hold the data for the JTable
+        Object[][] data = new Object[isiData.length][3];
+        int index = 0;
+
+        for (classGetSet dataItem : isiData) {
+            int angkatanNIM = Integer.parseInt(String.valueOf(dataItem.getnim()).substring(0, 2));
+            if (angkatanNIM == angkatan) {
+                data[index][0] = dataItem.getnim();
+                data[index][1] = dataItem.getnama();
+                data[index][2] = dataItem.getnilai();
+                index++;
             }
-            classGetSet tukar = isiData[duaIndeksA];
-            isiData[duaIndeksA] = isiData[i];
-            isiData[i] = tukar;
         }
+
+        // Create a new JTable and add it to a JScrollPane
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the JScrollPane to the JFrame
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Make the JFrame visible
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static void sortByAllAngkatan(classGetSet[] isiData) {
@@ -69,6 +90,8 @@ public String toString() {
             isiData[i] = tukar;
         }
     }
+
+
 
     public boolean isEmpty() {
         // TODO Auto-generated method stub

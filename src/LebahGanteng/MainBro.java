@@ -9,7 +9,7 @@ public class MainBro {
     public static void main(String[] args) {
         // Objek dan Manggil Kelas
         JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE,
-                JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+                JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
         JDialog dialog = optionPane.createDialog(null);
 
         // Membuat timer 3 seconds (3000 milliseconds)
@@ -37,7 +37,7 @@ public class MainBro {
                     "Masukkan jumlah mahasiswa yang ingin anda masukkan nilainya.");
 
             if (input == null) {// If statement ini berfungsi untuk keluar dari program jika user mengklik
-                                // tombol X(silang) pada jendela
+                // tombol X(silang) pada jendela
                 return;
             }
             try {
@@ -64,14 +64,14 @@ public class MainBro {
 
     // Method untuk meminta input
     private static void memintaInput(classGetSet[] isiData) {
-        for (int i = 0; i < isiData.length;) {
+        for (int i = 0; i < isiData.length; ) {
             isiData[i] = new classGetSet();
 
             String namaFinal;
             String namaMhs;
             String nimMhs;
             String nilaiTotal = null;
-            int nimFinal = 0;
+            long nimFinal = 0;
             double nilaiFinal = 0;
             boolean validInput = false;
 
@@ -87,7 +87,7 @@ public class MainBro {
                 }
 
                 try {
-                    nimFinal = Integer.parseInt(nimMhs);
+                    nimFinal = Long.parseLong(nimMhs);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "NIM harus berupa angka. Silakan coba lagi.");
                     continue;
@@ -129,16 +129,16 @@ public class MainBro {
         frame.setSize(600, 350);
 
         // Set up the confirmation panel
-        JPanel confirmationPanel = new JPanel();
+        JPanel headerSortir = new JPanel();
         JLabel confirmationLabel = new JLabel("APAKAH ANDA YAKIN DENGAN DATA YANG ANDA MASUKKAN?");
         confirmationLabel.setForeground(Color.RED); // Set the text color to red
-        confirmationPanel.add(confirmationLabel);
+        headerSortir.add(confirmationLabel);
 
         // Add the confirmation panel to the frame
-        frame.add(confirmationPanel, BorderLayout.NORTH);
+        frame.add(headerSortir, BorderLayout.NORTH);
 
         // Set up the table
-        String[] columnNames = { "Nama", "NIM", "Nilai" };
+        String[] columnNames = {"Nama", "NIM", "Nilai"};
         Object[][] tableData = new Object[data.length][3];
         for (int i = 0; i < data.length; i++) {
             tableData[i][0] = data[i].getnama();
@@ -155,6 +155,7 @@ public class MainBro {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                sortingPertipe(data);
             }
         });
         buttonPanel.add(yesButton);
@@ -183,79 +184,147 @@ public class MainBro {
 
     //Segmen progrsm untuk menanyakan user mau menyortir perangakatan atau keseluruhan dan pernilai
     public static void sortingPertipe(classGetSet[] isiData) {
-        boolean ulang = true;
-    
-        while (ulang) {
-            int guiTipe = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Apakah anda ingin Mensorting berdasarkan : \n1.Per-Angkatan 21 \n2.Per-Angkatan 22 \n3.Per-Angkatan 23 \n4.Seluruh Angkatan \n5.Nilai Total"));
-        
-            if (guiTipe >= 1 && guiTipe <= 5) {
-                if (guiTipe == 1) {
-                    classGetSet.sortByAngkatan(isiData, 21);
-                } else if (guiTipe == 2) {
-                    classGetSet.sortByAngkatan(isiData, 22);
-                } else if (guiTipe == 3) {
-                    classGetSet.sortByAngkatan(isiData, 23);
-                } else if (guiTipe == 4) {
-                    classGetSet.sortByAllAngkatan(isiData);
-                    boolean ascending = menuAscDesc();
-        
-                    if (ascending) {
-                        classSelSort.selSortAscByNilai(isiData);;
-                    } else {
-                        classSelSort.selSortDescByNilai(isiData);;
-                    }
-                } else if (guiTipe == 5) {
-                    // Sort by total nilai
-                    classSelSort.selSortAscByNilai(isiData);
-                }
-        
-                // Menampilkan submenu untuk pilihan ascending atau descending
-                boolean ascending = menuAscDesc();
-        
-                // Menampilkan hasil sorting
-                if (ascending) {
-                    classSelSort.selSortAsc(isiData); // Sorting ascending
+
+        JFrame frame = new JFrame("Sorting Options");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 350);
+        frame.setLayout(new GridLayout(6, 1));
+
+        JPanel headerSortir = new JPanel();
+        JLabel confirmationLabel = new JLabel("PILIH TIPE PENYORTIRAN ANDA");
+        confirmationLabel.setForeground(Color.BLACK); // Set the text color to red
+        headerSortir.add(confirmationLabel);
+
+        // Add the confirmation panel to the frame
+        frame.add(headerSortir, BorderLayout.NORTH);
+
+        JButton button1 = new JButton("Per-Angkatan 21");
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sortOrder = askSortOrder();
+
+                // Sort the data based on the user's choice
+                if (sortOrder == JOptionPane.YES_OPTION) {
+                    classSelSort.selSortAsc(isiData);
                 } else {
-                    classSelSort.selSortDesc(isiData); // Sorting descending
+                    classSelSort.selSortDesc(isiData);
                 }
-        
-                // Untuk hasilnya taruh disini nanti bang
 
+                // Display the sorted data
+                classGetSet.displayByAngkatan(isiData, 21);
 
-
-
-
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Pilihan tidak valid. Silakan coba lagi.");
+                frame.dispose();
             }
-        
-        }
-            
-        }
-        
-    
-    //Segemn untuk menampilkan menu untuk menanyakan user mau tipe sortiran ascending atau descending
-    private static boolean menuAscDesc() {
-        int pilihan = JOptionPane.showOptionDialog(null, "Pilih jenis sorting:", "Sorting",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                new String[] { "Ascending", "Descending" }, "Ascending");
+        });
 
-        return pilihan == JOptionPane.YES_OPTION;
+        JButton button2 = new JButton("Per-Angkatan 22");
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sortOrder = askSortOrder();
+
+                // Sort the data based on the user's choice
+                if (sortOrder == JOptionPane.YES_OPTION) {
+                    classSelSort.selSortAsc(isiData);
+                } else {
+                    classSelSort.selSortDesc(isiData);
+                }
+
+                // Display the sorted data
+                classGetSet.displayByAngkatan(isiData, 22);
+
+                frame.dispose();
+            }
+        });
+
+        JButton button3 = new JButton("Per-Angkatan 23");
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sortOrder = askSortOrder();
+
+                // Sort the data based on the user's choice
+                if (sortOrder == JOptionPane.YES_OPTION) {
+                    classSelSort.selSortAsc(isiData);
+                } else {
+                    classSelSort.selSortDesc(isiData);
+                }
+
+                // Display the sorted data
+                classGetSet.displayByAngkatan(isiData, 23);
+
+                frame.dispose();
+            }
+        });
+
+        JButton button4 = new JButton("Seluruh Angkatan");
+        button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                classGetSet.sortByAllAngkatan(isiData);
+                displaySortedData(isiData);
+                frame.dispose();
+            }
+        });
+
+        JButton button5 = new JButton("Nilai Total");
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                classSelSort.selSortAscByNilai(isiData);
+                displaySortedData(isiData);
+                frame.dispose();
+            }
+        });
+
+        frame.add(button1);
+        frame.add(button2);
+        frame.add(button3);
+        frame.add(button4);
+        frame.add(button5);
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
 
-    
+    //Segemn untuk menampilkan menu untuk menanyakan user mau tipe sortiran ascending atau descending
+    public static int askSortOrder() {
+        // Ask the user for the sort order
+        int sortOrder = JOptionPane.showOptionDialog(null, "Choose sort order:", "Sort Order",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new String[]{"Ascending", "Descending"}, "Ascending");
+        return sortOrder;
+    }
 
-private static boolean menuSortByNilai() {
-    int pilihan = JOptionPane.showOptionDialog(null, "Apakah anda ingin mensorting berdasarkan nilai total mahasiswa?",
-            "Sorting", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-            new String[] { "Ya", "Tidak" }, "Ya");
+    public static void displaySortedData(classGetSet[] sortedData) {
+        // Create a new JFrame
+        JFrame frame = new JFrame("Sorted Data");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
 
-    return pilihan == JOptionPane.YES_OPTION;
-}
+        // Define column names for the JTable
+        String[] columnNames = {"NIM", "Nama", "Nilai"};
 
+        // Create a 2D array to hold the data for the JTable
+        Object[][] data = new Object[sortedData.length][3];
+        for (int i = 0; i < sortedData.length; i++) {
+            data[i][0] = sortedData[i].getnim();
+            data[i][1] = sortedData[i].getnama();
+            data[i][2] = sortedData[i].getnilai();
+        }
 
+        // Create a new JTable and add it to a JScrollPane
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the JScrollPane to the JFrame
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Make the JFrame visible
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
 
 }
