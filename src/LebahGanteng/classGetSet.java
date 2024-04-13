@@ -2,6 +2,10 @@ package LebahGanteng;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static LebahGanteng.MainBro.sortingPertipe;
 
 public class classGetSet {
     private long nim;
@@ -71,6 +75,31 @@ public String toString() {
 
         // Add the JScrollPane to the JFrame
         frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Set up the buttons
+        JPanel buttonPanel = new JPanel();
+        JLabel promptLabel = new JLabel("APAKAH ANDA INGIN KEMBALI KE MENU SEBELUMNYA?");
+        buttonPanel.add(promptLabel);
+        JButton yesButton = new JButton("Ya");
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortingPertipe(isiData);
+                frame.dispose();
+            }
+        });
+        buttonPanel.add(yesButton);
+        JButton noButton = new JButton("Tidak");
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ask for the data again and overwrite the old data
+                frame.dispose();
+                System.exit(0);
+            }
+        });
+        buttonPanel.add(noButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Make the JFrame visible
         frame.setLocationRelativeTo(null);

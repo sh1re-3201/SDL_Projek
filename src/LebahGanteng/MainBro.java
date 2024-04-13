@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.text.NumberFormatter;
+import java.text.NumberFormat;
 
 public class MainBro {
     public static void main(String[] args) {
@@ -129,13 +131,13 @@ public class MainBro {
         frame.setSize(600, 350);
 
         // Set up the confirmation panel
-        JPanel headerSortir = new JPanel();
+        JPanel headerBalik = new JPanel();
         JLabel confirmationLabel = new JLabel("APAKAH ANDA YAKIN DENGAN DATA YANG ANDA MASUKKAN?");
         confirmationLabel.setForeground(Color.RED); // Set the text color to red
-        headerSortir.add(confirmationLabel);
+        headerBalik.add(confirmationLabel);
 
         // Add the confirmation panel to the frame
-        frame.add(headerSortir, BorderLayout.NORTH);
+        frame.add(headerBalik, BorderLayout.NORTH);
 
         // Set up the table
         String[] columnNames = {"Nama", "NIM", "Nilai"};
@@ -190,13 +192,13 @@ public class MainBro {
         frame.setSize(600, 350);
         frame.setLayout(new GridLayout(6, 1));
 
-        JPanel headerSortir = new JPanel();
+        JPanel headerBalik = new JPanel();
         JLabel confirmationLabel = new JLabel("PILIH TIPE PENYORTIRAN ANDA");
         confirmationLabel.setForeground(Color.BLACK); // Set the text color to red
-        headerSortir.add(confirmationLabel);
+        headerBalik.add(confirmationLabel);
 
         // Add the confirmation panel to the frame
-        frame.add(headerSortir, BorderLayout.NORTH);
+        frame.add(headerBalik, BorderLayout.NORTH);
 
         JButton button1 = new JButton("Per-Angkatan 21");
         button1.addActionListener(new ActionListener() {
@@ -336,7 +338,32 @@ public class MainBro {
         // Add the JScrollPane to the JFrame
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Make the JFrame visible
+        // Set up the buttons
+        JPanel buttonPanel = new JPanel();
+        JLabel promptLabel = new JLabel("APAKAH ANDA INGIN KEMBALI KE MENU SEBELUMNYA?");
+        buttonPanel.add(promptLabel);
+        JButton yesButton = new JButton("Ya");
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortingPertipe(sortedData);
+                frame.dispose();
+            }
+        });
+        buttonPanel.add(yesButton);
+        JButton noButton = new JButton("Tidak");
+        noButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ask for the data again and overwrite the old data
+                frame.dispose();
+                System.exit(0);
+            }
+        });
+        buttonPanel.add(noButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Display the frame
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
