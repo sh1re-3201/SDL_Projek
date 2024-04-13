@@ -34,32 +34,40 @@ public class classSelSort {
     }
 
     public static void selSortAscByNilai(classGetSet[] isiData) {
-        int n = isiData.length;
-        for (int i = 0; i < n - 1; i++) {
-            int terkecil = i;
-            for (int j = i + 1; j < n; j++) {
-                if (isiData[j].getnilai() < isiData[terkecil].getnilai()) {
-                    terkecil = j;
+        int terkecil;
+        classGetSet tukar;
+
+        for (int iawal = 0; iawal < isiData.length; iawal++) {
+            terkecil = iawal;
+            for (int iLanjut = iawal + 1; iLanjut < isiData.length; iLanjut++) {
+                if (isiData[iLanjut].getnilai() < isiData[terkecil].getnilai()) {
+                    terkecil = iLanjut;
                 }
             }
-            classGetSet tukar = isiData[i];
-            isiData[i] = isiData[terkecil];
+            tukar = isiData[iawal];
+            isiData[iawal] = isiData[terkecil];
             isiData[terkecil] = tukar;
         }
     }
-    
+
     public static void selSortDescByNilai(classGetSet[] isiData) {
-        int n = isiData.length;
-        for (int i = 0; i < n - 1; i++) {
-            int terbesar = i;
-            for (int j = i + 1; j < n; j++) {
-                if (isiData[j].getnilai() > isiData[terbesar].getnilai()) {
-                    terbesar = j;
+        int terkecil;
+        classGetSet tukar;
+
+        for (int iawal = 0; iawal < isiData.length; iawal++) {
+            terkecil = iawal;
+            for (int iLanjut = iawal + 1; iLanjut < isiData.length; iLanjut++) {
+                if (isiData[iLanjut].getnilai() > isiData[terkecil].getnilai()) {
+                    terkecil = iLanjut;
                 }
             }
-            classGetSet tukar = isiData[i];
-            isiData[i] = isiData[terbesar];
-            isiData[terbesar] = tukar;
+            tukar = isiData[iawal];
+            isiData[iawal] = isiData[terkecil];
+            isiData[terkecil] = tukar;
         }
-}
+    }
+
+    
+    
+
 }
