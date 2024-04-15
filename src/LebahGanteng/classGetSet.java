@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Tugas SDL
+
 import static LebahGanteng.MainBro.sortingPertipe;
 
 public class classGetSet {
