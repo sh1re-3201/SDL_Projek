@@ -108,19 +108,7 @@ public String toString() {
         frame.setVisible(true);
     }
 
-    public static void sortByAllAngkatan(classGetSet[] isiData) {
-        for (int i = 0; i < isiData.length - 1; i++) {
-            int allIndeks = i;
-            for (int j = i + 1; j < isiData.length; j++) {
-                if (isiData[j].getnim() < isiData[allIndeks].getnim()) {
-                    allIndeks = j;
-                }
-            }
-            classGetSet tukar = isiData[allIndeks];
-            isiData[allIndeks] = isiData[i];
-            isiData[i] = tukar;
-        }
-    }
+
 
 
 

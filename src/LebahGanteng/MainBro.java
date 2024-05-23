@@ -4,22 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.text.NumberFormatter;
-import java.text.NumberFormat;
 
 // Projek SDL
 
 public class MainBro {
     public static void main(String[] args) {
         // Objek dan Manggil Kelas
-        JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE,
-                JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+        JOptionPane optionPane = new JOptionPane("Selamat Datang!", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
         JDialog dialog = optionPane.createDialog(null);
 
         // Membuat timer 3 seconds (3000 milliseconds)
         Timer lama = new Timer(3000, new ActionListener() {
 
-            // Masih belajar yang ini
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Dispose the JDialog
@@ -114,9 +110,6 @@ public class MainBro {
                 validInput = true;
             } while (!validInput);
 
-            if (namaMhs.isEmpty() || nimMhs.isEmpty() || nilaiTotal.isEmpty()) {
-
-            }
             isiData[i] = new classGetSet();
             isiData[i].setnama(namaMhs);
             isiData[i].setnim(nimFinal);
